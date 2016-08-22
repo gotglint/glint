@@ -14,7 +14,7 @@ while getopts ":w" opt; do
   esac
 done
 
-for dir in glint-lib glint-server # glint-dashboard
+for dir in glint-client glint-cluster glint-dashboard glint-dashboard/glint-dashboard-server glint-dashboard/glint-dashboard-ui
 do
   echo "Building ${dir}..."
 
@@ -23,7 +23,7 @@ do
   if [ "${dir}" == "glint-server" ]
   then
     echo "Running \`npm ln\` for ${dir}..."
-    npm ln ../glint-lib
+    npm ln ../glint-client
   fi
 
   echo "Running \`npm prune\` for ${dir}..."
@@ -35,15 +35,10 @@ do
   echo "Running \`gulp dist\` for ${dir}..."
   gulp dist
 
-  cd ..
+  cd -
 done
 
-if ${run_build}
+if [ "$run_build" = false ]
 then
-#  echo "Running \`gulp dist\` for all projects..."
-#  gulp dist
-  echo "Doing nothing."
-else
-  echo "Running \`gulp watch\` for all projects..."
   gulp watch
 fi

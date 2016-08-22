@@ -20,9 +20,12 @@ cache:
   - apt: true
   - directories:
     - node_modules
-    - glint-dashboard/node_modules
-    - glint-lib/node_modules
+    - glint-client/node_modules
     - glint-server/node_modules
+    - glint-dashboard/node_modules
+    - glint-dashboard/glint-dashboard-server/node_modules
+    - glint-dashboard/glitn-dashboard-ui/node_modules
+
 
 addons:
   apt:

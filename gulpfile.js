@@ -1,9 +1,9 @@
 const hub = require('gulp-hub');
 
-// dashboard: 'glint-dashboard/gulpfile.js',
 const projects = {
-  library: 'glint-lib/gulpfile.js',
+  client: 'glint-client/gulpfile.js',
   server: 'glint-server/gulpfile.js'
+  dashboard: 'glint-dashboard/gulpfile.js'
 };
 
-hub([projects.dashboard, projects.library, projects.server]);
+hub([projects.client, projects.server, projects.dashboard]);
