@@ -1,9 +1,9 @@
 [submodule "glint-client"]
 	path = glint-client
-	url = https://github.com/gotglint/glint-client.git
+	url = git@github.com:gotglint/glint-client.git
 [submodule "glint-dashboard"]
 	path = glint-dashboard
-	url = https://github.com/gotglint/glint-dashboard.git
+	url = git@github.com:gotglint/glint-dashboard.git
 [submodule "glint-cluster"]
 	path = glint-cluster
-	url = https://github.com/gotglint/glint-cluster.git
+	url = git@github.com:gotglint/glint-cluster.git
