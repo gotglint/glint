@@ -32,7 +32,7 @@ addons:
     - g++-4.8
 
 before_script:
-  - npm install -g gulp node-gyp codecov
+  - npm install -g gulp node-gyp codecov mr-doc
 
 script:
   - ./build.sh
