@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+  # The Master Node
+  master:
+    image: quay.io/glint/glint-cluster-master:latest
+    ports:
+     - "45468:45468"
+
+  # A Worker Node
+  worker1:
+    image: quay.io/glint/glint-cluster-worker:latest
+    environment:
+      - MASTER_HOST_IP=master
+    links:
+      - master
+    depends_on:
+      - master
+
+  # Another Worker Node
+  worker2:
+    image: quay.io/glint/glint-cluster-worker:latest
+    environment:
+      - MASTER_HOST_IP=master
+    links:
+      - master
+    depends_on:
+      - master
+
+  # Redis - Session Caching for Ravel
+  redis:
+    image: redis:3.2-alpine
