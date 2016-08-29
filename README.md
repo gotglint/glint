@@ -10,6 +10,15 @@ For local development, we using `npm link`, which would typically need `sudo` to
 
 Run `./build.sh` to build everything.
 
+### Windows Users
+
+While `npm` should support Windows, there are random native modules that don't, or otherwise have platform compatibility issues.  For that reason, we've created a `Dockerfile`, so you can build and run the entire environment under an Ubuntu 16.04 LTS container.
+
+```bash
+docker build -t glint/glint-dev .
+docker run -it -v /c/Users/michael/workspace/glint:/opt/glint glint/glint-dev
+```
+
 ## How this Works
 
 * Fire up the master
