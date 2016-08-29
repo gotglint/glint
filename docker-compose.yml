@@ -5,7 +5,10 @@ services:
   master:
     image: quay.io/glint/glint-cluster-master:latest
     ports:
-     - "45468:45468"
+      - "45468:45468"
+    links:
+      - statsd
+      - rethinkdb
 
   # A Worker Node
   worker1:
@@ -14,6 +17,7 @@ services:
       - MASTER_HOST_IP=master
     links:
       - master
+      - statsd
     depends_on:
       - master
 
@@ -27,6 +31,44 @@ services:
     depends_on:
       - master
 
+  dashboard:
+    image: quay.io/glint/glint-dashboard:latest
+    links:
+      - rethinkdb
+      - master
+
+  # Our stats collector daemon
+  statsd:
+    image: quay.io/glint/glint-statsd:latest
+    links:
+    - carbon:graphite
+    ports:
+    - 8125:8125/udp
+    - 8126:8126
+
+  # UI to visualize the stats collected during runtime
+  graphite-web:
+    image: dockerana/graphite
+    links:
+    - carbon
+    ports:
+    - 8000:8000
+    volumes_from:
+    - carbon
+
+  # Graphite storage backend, used by both statsd and graphite-web
+  carbon:
+    image: dockerana/carbon
+    ports:
+    - 2003:2003
+    - 2004:2004
+    - 7002:7002
+    volumes:
+    - /opt/graphite
+
   # Redis - Session Caching for Ravel
   redis:
     image: redis:3.2-alpine
+
+  rethinkdb:
+    image: rethinkdb: 2.3
